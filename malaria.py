@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,23 +12,11 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 
 
-# In[2]:
-
-
 DATADIR = "/Users/indradumna/desktop/cell_images"
-
-
-# In[3]:
-
 
 Categories = ["P1","P2"]
 for i, a in enumerate (Categories):
     print (i, a)
-
-
-
-# In[4]:
-
 
 for i in Categories:
     path = os.path.join (DATADIR, i) # path to directory
@@ -44,28 +27,12 @@ for i in Categories:
         break
         break
         
-    
-
-
-# In[5]:
-
-
+  
 print (len(image_array))
-
-
-# In[7]:
-
 
 print (image_array)
 
-
-# In[8]:
-
-
 print (image_array.shape)
-
-
-# In[9]:
 
 
 IMG_SIZE =60
@@ -73,10 +40,6 @@ new1_array = cv2.resize(image_array,(IMG_SIZE,IMG_SIZE))
 plt.imshow (new1_array,cmap='gray')
 plt.show()
 print (len(new1_array))
-
-
-# In[10]:
-
 
 from tqdm import tqdm
 training_data = []
@@ -96,38 +59,16 @@ create_training_data()
 
 
 print (len(training_data))       
-                
-
-
-# In[11]:
-
 
 print (len(training_data))
-
-
-# In[12]:
 
 
 import random
 random.shuffle(training_data)
 
-
-# In[13]:
-
-
 for sample in training_data[:10]:
     print(sample[1])
-
-
-# In[ ]:
-
-
-
-
-
-# In[14]:
-
-
+    
 x= []
 y= []
 
@@ -140,10 +81,6 @@ print(x[0].reshape(-1, IMG_SIZE, IMG_SIZE, 1))
 
 x = np.array(x).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
-
-# In[16]:
-
-
 import pickle
 
 pickle_out = open("x.pickle","wb")
@@ -153,22 +90,6 @@ pickle_out.close()
 pickle_out = open("y.pickle","wb")
 pickle.dump(y, pickle_out)
 pickle_out.close()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[17]:
-
 
 import pickle
 
@@ -201,28 +122,13 @@ model.compile(loss='binary_crossentropy',
               metrics=['accuracy'])
 model.fit (x,y,epochs=5,batch_size=1,validation_split=0.2)
 
-
-# In[18]:
-
-
 from keras.callbacks import TensorBoard
-
-
-# Using tensorboard to visualize dynamic graphs of training and test metrics
-
-
-# In[19]:
-
 
 import time 
 
 NAME = "testing".format(int(time.time()))
 
 tensorboard = TensorBoard(log_dir="logs/{}".format(NAME))
-
-
-# In[20]:
-
 
 model.fit(x, y,
                       batch_size=32,
@@ -234,15 +140,9 @@ model.fit(x, y,
 model.save ('testing.model')
 
 
-# In[21]:
-
-
 #Open Macterminal to view tensorboard data on generated link for macbook
 #Type in terminal: tensorboard --logdir=/Users/indradumna/logs/Mal-vs-Healthy-CNN
 # Open http://Indradumnas-MacBook-Pro.local:6006
-
-
-# In[22]:
 
 
 
@@ -264,16 +164,8 @@ model = keras.models.load_model("testing.model")
 
 
 
-
-# In[ ]:
-
-
-
 #give the full path of the image
 prediction = model.predict([prepare('/Users/indradumna/Desktop/cell_images/testing/1.png')])
-
-
-# In[ ]:
 
 
 
@@ -281,14 +173,6 @@ print(prediction)  # will be a list in a list.
 print(CATEGORIES[int(prediction[0][0])])
 
 
-# In[ ]:
-
-
 print(CATEGORIES[int(np.argmax(prediction[0]))])
-
-
-# In[ ]:
-
-
 
 
