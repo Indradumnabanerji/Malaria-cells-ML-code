@@ -12,7 +12,7 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 
 
-DATADIR = "/Users/indradumna/desktop/cell_images"
+DATADIR = "/Users/indradumna/desktop/Malaria-cells-ML-code/Sample_images"
 
 Categories = ["P1","P2"]
 for i, a in enumerate (Categories):
